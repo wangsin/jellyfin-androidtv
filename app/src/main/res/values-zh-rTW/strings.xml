@@ -555,4 +555,5 @@
     <plurals name="tv_series">
         <item quantity="other">%1$s 部電視劇</item>
     </plurals>
+    <string name="lbl_transcode">转码</string>
 </resources>

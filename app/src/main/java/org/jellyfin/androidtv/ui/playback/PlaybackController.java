@@ -481,6 +481,7 @@ public class PlaybackController implements PlaybackControllerNotifiable {
                 Timber.d("Max bitrate is: %d", maxBitrate);
                 VideoOptions internalOptions = buildExoPlayerOptions(forcedSubtitleIndex, item, maxBitrate);
 
+                internalOptions.setNeedForceTranscoding(Utils.getNeedForceTranscoding(userPreferences.getValue()));
                 playInternal(getCurrentlyPlayingItem(), position, internalOptions);
                 mPlaybackState = PlaybackState.BUFFERING;
                 mFragment.setPlayPauseActionState(0);

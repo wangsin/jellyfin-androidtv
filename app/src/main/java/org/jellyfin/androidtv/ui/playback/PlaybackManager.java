@@ -48,6 +48,13 @@ public class PlaybackManager {
         request.setEnableDirectPlay(options.getEnableDirectPlay());
         request.setMaxAudioChannels(options.getMaxAudioChannels());
 
+        if (options.getNeedForceTranscoding()) {
+            request.setEnableDirectStream(false);
+            request.setEnableDirectPlay(false);
+            request.setEnableTranscoding(true);
+            request.setMaxStreamingBitrate(1_000_000 * 5L);
+        }
+
         Integer audioIdx = options.getAudioStreamIndex();
         if (audioIdx != null && audioIdx >= 0) {
             request.setAudioStreamIndex(audioIdx);

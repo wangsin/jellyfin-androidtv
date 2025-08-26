@@ -43,6 +43,7 @@ import org.jellyfin.androidtv.ui.playback.overlay.action.SelectAudioAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.SelectQualityAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.SkipNextAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.SkipPreviousAction;
+import org.jellyfin.androidtv.ui.playback.overlay.action.TranscodingAction;
 import org.jellyfin.androidtv.ui.playback.overlay.action.ZoomAction;
 import org.jellyfin.androidtv.util.DateTimeExtensionsKt;
 import org.koin.java.KoinJavaComponent;
@@ -61,6 +62,7 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
     private SelectAudioAction selectAudioAction;
     private ClosedCaptionsAction closedCaptionsAction;
     private SelectQualityAction selectQualityAction;
+    private TranscodingAction transcodingAction;
     private PlaybackSpeedAction playbackSpeedAction;
     private ZoomAction zoomAction;
     private ChapterAction chapterAction;
@@ -114,6 +116,7 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         playbackSpeedAction.dismissPopup();
         selectAudioAction.dismissPopup();
         selectQualityAction.dismissPopup();
+        transcodingAction.dismissPopup();
         zoomAction.dismissPopup();
 
         super.onDetachedFromHost();
@@ -199,6 +202,8 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         closedCaptionsAction.setLabels(new String[]{context.getString(R.string.lbl_subtitle_track)});
         selectQualityAction = new SelectQualityAction(context, this, KoinJavaComponent.get(UserPreferences.class));
         selectQualityAction.setLabels(new String[]{context.getString(R.string.lbl_quality_profile)});
+        transcodingAction = new TranscodingAction(context, this);
+        transcodingAction.setLabels(new String[]{context.getString(R.string.lbl_transcode)});
         playbackSpeedAction = new PlaybackSpeedAction(context, this, playbackController);
         playbackSpeedAction.setLabels(new String[]{context.getString(R.string.lbl_playback_speed)});
         zoomAction = new ZoomAction(context, this);
@@ -281,6 +286,7 @@ public class CustomPlaybackTransportControlGlue extends PlaybackTransportControl
         if (!playerAdapter.isLiveTv()) {
             secondaryActionsAdapter.add(playbackSpeedAction);
             secondaryActionsAdapter.add(selectQualityAction);
+            secondaryActionsAdapter.add(transcodingAction);
         }
 
         secondaryActionsAdapter.add(zoomAction);
